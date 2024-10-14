@@ -4,34 +4,40 @@
 
 {% block extra_head %}
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/10103/10103466.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_products.css') }}">
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h2>Product List</h2>
-        <a href="{{url_for('add_product')}}" class="btn btn-primary">Add Product</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in products %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.quantity }}</td>
-                    <td>
-                        <a href="/update/{{ product.id }}" class="btn btn-primary">Edit</a>
-                        <a href="/delete/{{ product.id }}" class="btn btn-primary">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <h2 class="catalog-title">Product List</h2>
+        <a href="{{url_for('add_product')}}" class="btn-add-product">Add Product</a>
+        
+        <div class="table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>
+                            <a href="/update/{{ product.id }}" class="btn-edit">Edit</a>
+                            <a href="/delete/{{ product.id }}" class="btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

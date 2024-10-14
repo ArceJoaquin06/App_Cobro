@@ -102,6 +102,7 @@ def delete_product(id):
     return redirect(url_for("list_products"))
 
 @app.route('/client')
+@login_required
 def client():
     products = Product.query.all()
     return render_template('client.html', products=products)
@@ -116,7 +117,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             if user.is_admin:  # Verifica si el usuario es admin
-                return redirect(url_for('home'))  # Redirigir a home.html
+                return redirect(url_for('list_products'))  # Redirigir a home.html
             else:
                 return redirect(url_for('client'))  # Redirigir a client.html
 
