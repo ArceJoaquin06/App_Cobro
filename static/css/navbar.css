@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #343a40; /* Color de fondo oscuro */
+    border-bottom: 2px solid #f8f9fa; /* Línea inferior clara */
+}
+
+.navbar-nav .nav-link {
+    color: #b3b9be; /* Color de texto claro */
+    transition: color 0.3s ease; /* Efecto suave al pasar el mouse */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107; /* Color amarillo al pasar el mouse */
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold; /* Resaltar la opción activa */
+    color: #ffc107; /* Mismo color amarillo para la opción activa */
+}
+
+.container-fluid {
+    padding: 10px 20px; /* Espaciado en el contenedor */
+}
+
+.navbar-toggler {
+    background-color: #ffc107; /* Color del botón de menú en móvil */
+}
+
+.navbar-toggler-icon {
+    background-color: #343a40; /* Color del ícono del botón de menú */
+}
+
+/* Añadir un poco de sombra */
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

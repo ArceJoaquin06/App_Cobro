@@ -1,0 +1,57 @@
+body {
+    background-color: #f0f2f5; /* Fondo claro y suave */
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 400px; /* Ancho máximo del contenedor */
+    margin-top: 100px; /* Espacio desde la parte superior */
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.form-signin {
+    display: flex;
+    flex-direction: column; /* Para apilar los elementos */
+}
+
+.form-signin-heading {
+    margin-bottom: 20px; /* Espacio debajo del título */
+    text-align: center; /* Centrar el título */
+    color: #343a40; /* Color del título */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Color del botón */
+    border-color: #007bff; /* Color del borde del botón */
+    transition: background-color 0.3s ease; /* Efecto suave al pasar el mouse */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+    border-color: #0056b3; /* Borde más oscuro */
+}
+
+.form-control {
+    border-radius: 4px; /* Bordes redondeados para campos de entrada */
+    box-shadow: none; /* Quitar la sombra por defecto */
+    border: 1px solid #ced4da; /* Color del borde */
+    margin-bottom: 15px; /* Espacio entre campos */
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Color del borde al hacer foco */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra al hacer foco */
+}
+
+.checkbox {
+    margin-bottom: 20px; /* Espacio debajo de la casilla de recordar */
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 15px; /* Espacio reducido en pantallas pequeñas */
+    }
+}
