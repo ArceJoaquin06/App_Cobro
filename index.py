@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
@@ -29,6 +29,17 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+#clase para el producto
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<Product {self.name} - available {self.quantity}>'
+
 with app.app_context():
     db.create_all()
 
@@ -47,6 +58,61 @@ class RegisterForm(FlaskForm):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+#metodos CRUD para los productos
+
+#crear el producto
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_product():
+    if request.method == 'POST':
+        name = request.form['name']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        
+        new_product = Product(name=name, price=price, quantity=quantity)
+        db.session.add(new_product)
+        db.session.commit()
+        return redirect(url_for("list_products"))
+    return render_template('add_products.html')
+
+#leer el producto
+
+@app.route('/catalog')
+def list_products():
+    products = Product.query.all()
+    return render_template('list_products.html', products=products)
+
+#actualizar el producto
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_product(id):
+    product = Product.query.get_or_404(id)
+    if request.method == 'POST':
+        product.name = request.form['name']
+        product.price = request.form['price']
+        product.quantity = request.form['quantity']
+        db.session.commit()
+        return redirect(url_for("list_products"))
+    return render_template('update_product.html', product=product)
+
+#borrar producto
+
+@app.route('/delete/<int:id>')
+def delete_product(id):
+    product = Product.query.get_or_404(id)
+    db.session.delete(product)
+    db.session.commit()
+    return redirect(url_for("list_products"))
+
+#vista del cliente
+
+@app.route('/client')
+def client():
+    products = Product.query.all()
+    return render_template('client.html', products=products)
+
+#metodos CRUD para los Log In y Sign Up
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
