@@ -1,0 +1,70 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px; /* Limita el ancho del contenedor */
+    margin: 50px auto; /* Centra el contenedor */
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+h2 {
+    font-size: 2rem;
+    color: #4e73df;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos del formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #4e73df; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+}
+
+/* Botón de envío */
+.btn {
+    width: 100%;
+    background-color: #4e73df; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    font-size: 1.1rem; /* Tamaño de fuente */
+    padding: 10px;
+    border-radius: 25px; /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+.btn:hover {
+    background-color: #357ae8; /* Color al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Ampliar el contenedor en dispositivos pequeños */
+    }
+}

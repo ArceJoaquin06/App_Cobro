@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
@@ -24,6 +24,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean, default=False)  # Campo para admin
+    balance = db.Column(db.Float, default=50000.0) # dinero disponible
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -101,6 +102,27 @@ def delete_product(id):
     db.session.commit()
     return redirect(url_for("list_products"))
 
+@app.route('/buy/<int:product_id>', methods=['POST'])
+@login_required
+def buy_product(product_id):
+    product = Product.query.get_or_404(product_id)
+    
+    if product.quantity <= 0:
+        flash('Este producto está agotado.', 'danger')
+        return redirect(url_for('client'))
+    
+    if current_user.balance < product.price:
+        flash('No tienes suficiente balance para comprar este producto.', 'danger')
+        return redirect(url_for('client'))
+
+    current_user.balance -= product.price
+    product.quantity -= 1
+
+    db.session.commit()
+
+    flash(f'Has comprado {product.name} por ${product.price}.', 'success')
+    return redirect(url_for('client'))
+
 @app.route('/client')
 @login_required
 def client():
@@ -117,7 +139,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             if user.is_admin:  # Verifica si el usuario es admin
-                return redirect(url_for('list_products'))  # Redirigir a home.html
+                return redirect(url_for('list_products'))  # Redirigir a list_products.html
             else:
                 return redirect(url_for('client'))  # Redirigir a client.html
 
@@ -135,7 +157,7 @@ def signup():
             return '<h1>Username already taken!</h1>'
         
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password, balance=50000.0)
         db.session.add(new_user)
         db.session.commit()
 

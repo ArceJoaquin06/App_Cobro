@@ -13,21 +13,21 @@
 {% block body %}
     <div class="container">
         <div class="form-container">
-            <h2 class="form-title">Add New Product</h2>
+            <h2 class="form-title">Agregar Nuevo Producto</h2>
             <form action="/add" method="post">
                 <div class="form-group">
-                    <label for="name">Product Name:</label>
+                    <label for="name">Nombre del producto:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="price">Price:</label>
+                    <label for="price">Precio:</label>
                     <input type="text" class="form-control" id="price" name="price" required>
                 </div>
                 <div class="form-group">
-                    <label for="quantity">Quantity:</label>
+                    <label for="quantity">Stock:</label>
                     <input type="number" class="form-control" id="quantity" name="quantity" required>
                 </div>
-                <button type="submit" class="btn-submit">Add Product</button>
+                <button type="submit" class="btn-submit">Agregar Producto</button>
             </form>
         </div>
     </div>

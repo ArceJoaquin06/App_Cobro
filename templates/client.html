@@ -4,28 +4,45 @@
 
 {% block extra_head %}
     <link rel="icon" href="https://elionshops.com/images/uploads/mercadopago.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/client.css') }}">
 {% endblock %}
 
 {% block body %}
 
 <div class="container">
-    <h1>Virtual Store!</h1>
+    <h1>Tienda Virtual!</h1>
     <p>Mira todos nuestros productos</p>
+
+    <!-- los productos -->
     <div class="container">
         <div class="row">
-            {%for product in products%}
+            {%for product in products if product.quantity > 0 %}
                 <div class="card m-2" style="width: 18rem;">
                     <div class="card-header">
                         {{product.name}}
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Price: ${{product.price}}</li>
-                        <li class="list-group-item">Left: {{product.quantity}} units</li>
+                        <li class="list-group-item">Precio: ${{product.price}}</li>
+                        <li class="list-group-item">Stock: {{product.quantity}} units</li>
                     </ul>
+                    <!-- para comprar los productos -->
+                    <form method="POST" action="{{ url_for('buy_product', product_id=product.id) }}">
+                        <button class="btn btn-primary m-2" type="submit">Comprar</button>
+                    </form>
                 </div>
             {%endfor%}
         </div>
     </div>
+        <!-- los mensajes con flash -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} mt-3">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 </div>
 
 {% endblock %}
